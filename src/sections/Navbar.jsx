@@ -1,6 +1,12 @@
 import { useState } from "react"
 import { navLinks } from "../constants/index.js"
 
+/**
+ * NavItems renders a list of navigation links using the navLinks array.
+ * Each link is displayed as a list item with an anchor tag.
+ * The component applies specific CSS classes for styling.
+ */
+
 const NavItems = () => {
     return (
         <ul className="nav-ul">
@@ -14,6 +20,12 @@ const NavItems = () => {
         </ul>
     )
 }
+
+/**
+ * Navbar component that renders a fixed header with navigation links.
+ * It includes a responsive menu toggle for smaller screens.
+ */
+
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false)
 
