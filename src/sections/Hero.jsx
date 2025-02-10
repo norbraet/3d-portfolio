@@ -4,6 +4,9 @@ import HackerRoom from "../components/HackerRoom"
 import { Suspense } from "react"
 import CanvasLoader  from '../components/CanvasLoader'
 import { Leva, useControls } from "leva"
+import { useMediaQuery } from "react-responsive"
+import { calculateSizes } from "../constants/index.js"
+
 const Hero = () => {
     const controls = useControls('HackerRoom', {
         positionX: {
@@ -42,6 +45,11 @@ const Hero = () => {
             max: 10,
         },
     })
+    const isSmall = useMediaQuery({ maxWidth: 440 })
+    const isMobile = useMediaQuery({ maxWidth: 768 })
+    const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 })
+
+    const sizes = calculateSizes(isSmall, isMobile, isTablet)
 
     return (
         <section className="min-h-screen w-full flex flex-col relative">
@@ -51,17 +59,21 @@ const Hero = () => {
             </div>
 
             <div className="w-full h-full absolute inset-0">
-                <Leva />
+                {/* 
+                Leva needs to be placed outside of Canvas since it is not available inside the Three JS Namespace 
+                In Order to use Leva we need to refactor the position, rotation and scale so it uses the values from the useControls hook.
+                */}
+                {/* <Leva /> */} 
                 <Canvas className="-w-full h-full">
                     <Suspense fallback = {<CanvasLoader />}>
                         <PerspectiveCamera 
                             makeDefault 
-                            position={[0, 0, 30]} 
+                            position={[0, 0, 20]} 
                         />
                         <HackerRoom 
-                            position={[2, -8, 2]}
+                            position={sizes.deskPosition}
                             rotation={[0, -Math.PI, 0]}
-                            scale={0.1}
+                            scale={sizes.deskScale}
                         />
                         <ambientLight 
                             intensity={1} 
