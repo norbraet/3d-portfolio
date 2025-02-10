@@ -6,6 +6,7 @@ import CanvasLoader  from '../components/CanvasLoader'
 import { Leva, useControls } from "leva"
 import { useMediaQuery } from "react-responsive"
 import { calculateSizes } from "../constants/index.js"
+import Target from "../components/Target.jsx"
 
 const Hero = () => {
     const controls = useControls('HackerRoom', {
@@ -63,7 +64,7 @@ const Hero = () => {
                 Leva needs to be placed outside of Canvas since it is not available inside the Three JS Namespace 
                 In Order to use Leva we need to refactor the position, rotation and scale so it uses the values from the useControls hook.
                 */}
-                {/* <Leva /> */} 
+                {/* <Leva /> */}
                 <Canvas className="-w-full h-full">
                     <Suspense fallback = {<CanvasLoader />}>
                         <PerspectiveCamera 
@@ -75,6 +76,9 @@ const Hero = () => {
                             rotation={[0, -Math.PI, 0]}
                             scale={sizes.deskScale}
                         />
+                        <group>
+                            <Target position={sizes.targetPosition}/>
+                        </group> 
                         <ambientLight 
                             intensity={1} 
                         />  
