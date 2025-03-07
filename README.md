@@ -32,6 +32,9 @@ npm install
 
 ## Usage
 To run the project locally, use the following command:
+```sh
+npm run dev 
+```
 
 This will start the development server and you can view the website at http://localhost:3000. To build the project for production, use the following command: To preview the production build, use the following command:
 
