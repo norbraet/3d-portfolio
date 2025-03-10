@@ -2,9 +2,27 @@ import React, { useState } from 'react'
 import Globe from 'react-globe.gl'
 import Button from '../components/Button'
 
+/**
+ * A page component that renders a simple about me section with a 3D globe.
+ *
+ * The component renders a 3D globe with a few labels and a simple layout with
+ * a few sections. The sections are intended to be used to display information
+ * about the developer, such as their name, a short bio, and their contact
+ * information.
+ *
+ * The component uses the `react-globe.gl` library to render the 3D globe.
+ *
+ * @return {React.ReactElement} The About component.
+ */
 const About = () => {
     const [hasCopied, setHasCopied] = useState(false)
     const emailAdress = 'n.balaz@outlook.com'
+    
+    /**
+     * Handles the copy-to-clipboard button click event.
+     * Copies the email address to the user's clipboard.
+     * Triggers a 2-second timeout to reset the `hasCopied` state.
+     */
     const handleCopy = () => {
         navigator.clipboard.writeText(emailAdress)
         setHasCopied(true)
