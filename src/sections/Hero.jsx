@@ -12,8 +12,10 @@ import Cube from "../components/Cube.jsx"
 import Rings from "../components/Rings.jsx"
 import HeroCamera from "../components/HeroCamera.jsx"
 import Button from "../components/Button.jsx"
+import { useInView } from "react-intersection-observer"
 
 const Hero = () => {
+    const { ref, inView } = useInView({ threshold: 0.1})
     const controls = useControls('HackerRoom', {
         positionX: {
             value: 2.5,
@@ -64,40 +66,41 @@ const Hero = () => {
                 <p className="hero_tag text-gray_gradient">Ich bin ein Full-Stack Entwickler!</p>
             </div>
 
-            <div className="w-full h-full absolute inset-0">
-                {/* 
-                Leva needs to be placed outside of Canvas since it is not available inside the Three JS Namespace 
-                In Order to use Leva we need to refactor the position, rotation and scale so it uses the values from the useControls hook.
-                */}
-                {/* <Leva /> */}
-                <Canvas className="-w-full h-full">
-                    <Suspense fallback = {<CanvasLoader />}>
-                        <PerspectiveCamera 
-                            makeDefault 
-                            position={[0, 0, 20]} 
-                        />
-                        <HeroCamera isMobile={isMobile}>
-                            <HackerRoom 
-                                position={sizes.deskPosition}
-                                rotation={[0, -Math.PI, 0]}
-                                scale={sizes.deskScale}
+            <div ref={ref} className="w-full h-full absolute inset-0">
+                {inView && (
+                 
+                    // Leva needs to be placed outside of Canvas since it is not available inside the Three JS Namespace 
+                    // In Order to use Leva we need to refactor the position, rotation and scale so it uses the values from the useControls hook.
+                    // <Leva /> 
+                    <Canvas className="-w-full h-full" dpr={[1, 2]}>
+                        <Suspense fallback = {<CanvasLoader />}>
+                            <PerspectiveCamera 
+                                makeDefault 
+                                position={[0, 0, 20]} 
                             />
-                        </HeroCamera>
-                        <group>
-                            <Target position={sizes.targetPosition}/>
-                            <ReactLogo position={sizes.reactLogoPosition}/>
-                            <Cube position={sizes.cubePosition}/>
-                            <Rings position={sizes.ringPosition}/>
-                        </group> 
-                        <ambientLight 
-                            intensity={1} 
-                        />  
-                        <directionalLight 
-                            position={[10, 10, 10]} 
-                            intensity={0.5}
-                        />
-                    </Suspense>
-                </Canvas>
+                            <HeroCamera isMobile={isMobile}>
+                                <HackerRoom 
+                                    position={sizes.deskPosition}
+                                    rotation={[0, -Math.PI, 0]}
+                                    scale={sizes.deskScale}
+                                />
+                            </HeroCamera>
+                            <group>
+                                <Target position={sizes.targetPosition}/>
+                                <ReactLogo position={sizes.reactLogoPosition}/>
+                                <Cube position={sizes.cubePosition}/>
+                                <Rings position={sizes.ringPosition}/>
+                            </group> 
+                            <ambientLight 
+                                intensity={1} 
+                            />  
+                            <directionalLight 
+                                position={[10, 10, 10]} 
+                                intensity={0.5}
+                            />
+                        </Suspense>
+                    </Canvas>
+                )}
             </div>
             <div className="absolute bottom-7 left-0 right-0 w-full z-10 c-space">
                     <a href="#about" className="w-fit">
