@@ -3,21 +3,17 @@ import emailjs from '@emailjs/browser'
 
 const Contact = () => {
     const emailId = 'service_y2vdwya' //TODO: Auslagern in die env
-    const emailTemplateId = 'template_11ta4kp' //TODO: Auslagern in die env
+    const emailTemplateId = 'template_j37t583' //TODO: Auslagern in die env
     const mail = 'n.balaz@outlook.com' //TODO: Auslagern
     const emailJsPublicKey = 'nwW7KncHOZCzbGwoi' //TODO: Auslagern
 
-    const formRef = useRef()
     const [loading, setLoading] = useState(false)
-    const [form, setForm] = useState({
-        name: '',
-        email: '',
-        message: '',
-    })
+    
+    const formRef = useRef()
+    const nameRef = useRef()
+    const emailRef = useRef()
+    const messageRef = useRef()
 
-    const handleChange = ({target: {name, value}}) => {
-        setForm({...form, [name]: value})
-    }
     const handleSubmit = async (event) => {
         event.preventDefault()
         setLoading(true)
@@ -27,23 +23,18 @@ const Contact = () => {
                 emailId, 
                 emailTemplateId, 
                 {
-                    from_name: form.name,
+                    from_name: nameRef.current.value,
                     to_name: 'Norbert',
-                    from_email: form.email,
+                    from_email: emailRef.current.value,
                     to_email: mail,
-                    message: form.message,
+                    message: messageRef.current.value,
                 },
                 emailJsPublicKey,
             )
             setLoading(false)
-
             alert('Your message has been sent!')
 
-            setForm({
-                name: '',
-                email: '',
-                message: '',
-            })
+            formRef.current.reset()
         } catch (error) {
             console.error(error)
             alert('Something went wrong!')
@@ -63,19 +54,19 @@ const Contact = () => {
                     <form ref={formRef} onSubmit={handleSubmit} className='mt-12 flex flex-col space-y-7'>
                         <label className='space-y-3'>
                             <span className='field-label'>Full Name</span>
-                            <input type="text" name="name" value={form.name} onChange={handleChange} required className='field-input' placeholder='John Doe'/>
+                            <input type="text" name="name" ref={nameRef} required className='field-input' placeholder='John Doe' />
                         </label>
                         <label className='space-y-3'>
                             <span className='field-label'>Email</span>
-                            <input type="email" name="email" value={form.email} onChange={handleChange} required className='field-input' placeholder='johndoe@gmail.com'/>
+                            <input type="email" name="email" ref={emailRef} required className='field-input' placeholder='johndoe@gmail.com' />
                         </label>
                         <label className='space-y-3'>
                             <span className='field-label'>Your message</span>
-                            <textarea name="message" value={form.messagE} onChange={handleChange} required rows={5} className='field-input' placeholder="Hi, I'm interested in ..."/>
+                            <textarea name="message" ref={messageRef} required rows={5} className='field-input' placeholder="Hi, I'm interested in ..." />
                         </label>
                         <button className='field-btn' type='submit' disabled={loading}>
                             {loading ? 'Sending...' : 'Send Message'}
-                            <img src="/assets/arrow-up.png" alt="arrow-up" className='field-btn_arrow'/>
+                            <img src="/assets/arrow-up.png" alt="arrow-up" className='field-btn_arrow' />
                         </button>
                     </form>
                 </div>
