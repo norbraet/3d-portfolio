@@ -11,11 +11,9 @@ const Contact = () => {
     const [form, setForm] = useState({
         name: '',
         email: '',
-        messagE: '',
+        message: '',
     })
 
-    // service_y2vdwya
-    
     const handleChange = ({target: {name, value}}) => {
         setForm({...form, [name]: value})
     }
