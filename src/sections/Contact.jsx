@@ -5,7 +5,8 @@ const Contact = () => {
     const emailId = 'service_y2vdwya' //TODO: Auslagern in die env
     const emailTemplateId = 'template_11ta4kp' //TODO: Auslagern in die env
     const mail = 'n.balaz@outlook.com' //TODO: Auslagern
-    const emailJsPublicKey = 'nwW7KncHOZCzbGwoi'
+    const emailJsPublicKey = 'nwW7KncHOZCzbGwoi' //TODO: Auslagern
+
     const formRef = useRef()
     const [loading, setLoading] = useState(false)
     const [form, setForm] = useState({
