@@ -16,7 +16,7 @@ import { useInView } from "react-intersection-observer"
 
 const Hero = () => {
     const { ref, inView } = useInView({ threshold: 0.1})
-    const controls = useControls('HackerRoom', {
+    /* const controls = useControls('HackerRoom', {
         positionX: {
             value: 2.5,
             min: -10,
@@ -52,7 +52,7 @@ const Hero = () => {
             min: 0.1,
             max: 10,
         },
-    })
+    }) */
     const isSmall = useMediaQuery({ maxWidth: 440 })
     const isMobile = useMediaQuery({ maxWidth: 768 })
     const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1024 })
